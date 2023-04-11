@@ -20,7 +20,6 @@ trace = 30     # Number of model traces
 modle_name = '1wedge1'
 ref = reflectivity_modling(N, modle_name, trace)
 
-
 # Design wavelet
 dt = 0.001  # 1ms
 fm = 30     # Center frequency of wavelet
@@ -33,12 +32,10 @@ nWaveSampPoint = len(w)
 W_temp = toeplitz(w, np.zeros(trace))
 WW = W_temp[(nWaveSampPoint - 1) // 2 : - (nWaveSampPoint - 1) // 2, :]  # Full freq
 
-
-
 # Convolution, reverse, shift, multiply, and sum
 seis = np.dot(WW, ref)
 
-# Estimate wavelet
+# Estimate wavelet  移植部分
 L_w = 81
 wmin_esti, wzero_esti = fit_amplitude2min_zero_wavelet2D(seis, dt, L_w, 30)
 wavelet = wzero_esti / max(wzero_esti)
