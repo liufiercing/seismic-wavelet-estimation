@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import reflectivity_modling
-import fit_amplitude2min_zero_wavelet2D
+from reflectivity_modling import *
+from fit_amplitude2min_zero_wavelet2D import *
 from scipy.linalg import toeplitz
 
 # Set default figure properties
@@ -19,6 +19,8 @@ trace = 30     # Number of model traces
 # Generate reflectivity model
 modle_name = '1wedge1'
 ref = reflectivity_modling(N, modle_name, trace)
+plt.plot(ref, '-k', linewidth=2)
+exit()
 
 # Design wavelet
 dt = 0.001  # 1ms
