@@ -1,7 +1,7 @@
-import numpy as np
 import matplotlib.pyplot as plt
 from reflectivity_modling import *
 from fit_amplitude2min_zero_wavelet2D import *
+
 from scipy.linalg import toeplitz
 
 # Set default figure properties
@@ -20,17 +20,18 @@ trace = 30     # Number of model traces
 modle_name = '1wedge1'
 ref = reflectivity_modling(N, modle_name, trace)
 
-# Design wavelet 移植部分
+# Design wavelet
 dt = 0.001  # 1ms
 fm = 30     # Center frequency of wavelet
 trun_time = 0.04
 t = np.arange(-trun_time, trun_time + dt, dt)
-w = (1 - 2 * (np.pi * fm * t) ** 2) * np.exp(-(np.pi * fm * t) ** 2)
-plt.plot(w, '-r', linewidth=2)
-plt.show()
-# 
-nWaveSampPoint = len(w)
-W_temp = toeplitz(w, np.zeros(trace))
+rowVector = t.reshape((1,-1)) #转为行
+w = (1 - 2 * (np.pi * fm * rowVector) ** 2) * np.exp(-(np.pi * fm * rowVector) ** 2)
+s=w.T
+X=np.zeros((179,1))
+d=np.append(s,X,axis=0)
+nWaveSampPoint = len(w[0])
+W_temp = toeplitz(d, np.zeros(len(ref)))
 WW = W_temp[(nWaveSampPoint - 1) // 2 : - (nWaveSampPoint - 1) // 2, :]  # Full freq
 
 # Convolution, reverse, shift, multiply, and sum
@@ -42,7 +43,10 @@ wmin_esti, wzero_esti = fit_amplitude2min_zero_wavelet2D(seis, dt, L_w, 30)
 wavelet = wzero_esti / max(wzero_esti)
 
 # Plot original and estimated wavelets
-plt.plot(w / max(w), '-k', linewidth=2)
+plt.plot(w , '-k', linewidth=2)
+plt.show()
+plt.legend(['Original wavelet'])
+
 plt.plot(wavelet, '-r', linewidth=2)
-plt.legend(['Original wavelet', 'Estimated wavelet'])
+plt.legend(['Estimated wavelet'])
 plt.show()

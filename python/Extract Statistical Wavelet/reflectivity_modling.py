@@ -26,13 +26,13 @@ def reflectivity_modling(N, modle_name, trace):
         ref = np.zeros((N, trace))
         ref[20, :] = 0.3
         for j in range(trace):
-            ref[20+round((j-1)*1), j] = 0.3
+            ref[20+round((j)*1), j] = 0.3
     elif modle_name == '1wedge2':
         # Wedge model
         # trace = 30
         ref = np.zeros((N, trace))
         ref[40, :] = 0.3
         for j in range(4, trace):
-            ref[40-3+round((j-1)*1), j] = 0.3
+            ref[40-3+round((j)*1), j] = 0.3
 
     return ref
