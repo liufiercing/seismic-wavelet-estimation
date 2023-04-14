@@ -20,7 +20,7 @@ trace = 30     # Number of model traces
 modle_name = '1wedge1'
 ref = reflectivity_modling(N, modle_name, trace)
 
-# Design wavelet
+# Design wavelet 移植部分
 dt = 0.001  # 1ms
 fm = 30     # Center frequency of wavelet
 trun_time = 0.04
@@ -28,6 +28,7 @@ t = np.arange(-trun_time, trun_time + dt, dt)
 w = (1 - 2 * (np.pi * fm * t) ** 2) * np.exp(-(np.pi * fm * t) ** 2)
 plt.plot(w, '-r', linewidth=2)
 plt.show()
+# 
 nWaveSampPoint = len(w)
 W_temp = toeplitz(w, np.zeros(trace))
 WW = W_temp[(nWaveSampPoint - 1) // 2 : - (nWaveSampPoint - 1) // 2, :]  # Full freq
