@@ -18,7 +18,7 @@ def ricker(f_samp_interval, n_wave_samp_point, f_wave_max_amp, f_wave_main_freq,
 
 dominant_frequency = 30     # 子波主频 Hz
 sample_rate = 0.001         # 子波采样率 s
-phase_rotation = 0          # 子波相对  degrees
+phase_rotation = 0          # 子波相位  degrees
 wavelet_length = 100        # 子波长度  ms
 
 w = ricker(sample_rate, wavelet_length, 1, dominant_frequency, phase_rotation * np.pi / 180)

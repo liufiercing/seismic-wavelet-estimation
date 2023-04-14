@@ -17,7 +17,7 @@ wavelet_length = 100        # 子波长度  ms
 w = ricker(sample_rate, wavelet_length, 1, dominant_frequency, phase_rotation * np.pi / 180)
 ```
 
-### 返回值为一位向量
+### 返回值为向量
 
 
 
